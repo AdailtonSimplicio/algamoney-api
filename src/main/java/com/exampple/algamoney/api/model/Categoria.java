@@ -2,6 +2,7 @@ package com.exampple.algamoney.api.model;
 
 import jakarta.persistence.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
@@ -11,6 +12,7 @@ public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codigo;
+   @NotNull
     private String nome;
 
     //Gets e Sets

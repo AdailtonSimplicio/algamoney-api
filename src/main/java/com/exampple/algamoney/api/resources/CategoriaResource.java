@@ -10,8 +10,11 @@ import com.exampple.algamoney.api.repository.CategoriaRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import javax.validation.Valid;
 
 import static org.springframework.http.ResponseEntity.notFound;
 import static org.springframework.http.ResponseEntity.unprocessableEntity;
@@ -28,7 +31,7 @@ public class CategoriaResource {
     }
     @PostMapping
     //@ResponseStatus(HttpStatus.CREATED) não necessaria pois já tem no return
-    public ResponseEntity<Categoria>criar(@RequestBody Categoria categoria, HttpServletResponse response) {
+    public ResponseEntity<Categoria>criar(@Valid @RequestBody Categoria categoria, HttpServletResponse response) {
        Categoria categoriaSalva =  categoriaRepository.save(categoria);
 
                 URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{codigo}")

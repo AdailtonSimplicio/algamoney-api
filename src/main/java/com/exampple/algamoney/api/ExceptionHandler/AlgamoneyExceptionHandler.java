@@ -23,7 +23,27 @@ public class AlgamoneyExceptionHandler extends ResponseEntityExceptionHandler {
             HttpStatusCode status,
             WebRequest request) {
         String mensagemUsuario = messageSource.getMessage("mensagem.invalida", null, LocaleContextHolder.getLocale());
-        return handleExceptionInternal(ex, mensagemUsuario, headers, HttpStatus.BAD_REQUEST, request);
+        String mensagemDesenvolvedor = ex.getCause().toString();
+        return handleExceptionInternal(ex,new Erro(mensagemUsuario, mensagemDesenvolvedor), headers, HttpStatus.BAD_REQUEST, request);
     }
+    public static class Erro{
+        private String mensagemUsuario;
+        private String mensagemDesenvolvedor;
+
+        public Erro(String mensagemUsuario, String mensagemDesenvolvedor){
+            this.mensagemUsuario=mensagemUsuario;
+            this.mensagemDesenvolvedor = mensagemDesenvolvedor;
+        }
+
+        public String getMensagemUsuario() {
+            return mensagemUsuario;
+        }
+
+        public String getMensagemDesenvolvedor() {
+            return mensagemDesenvolvedor;
+        }
+    }
+    /*esta classe trata exceções relacionadas à leitura de mensagens HTTP em um aplicativo Spring Boot,
+     fornecendo uma mensagem de erro localizada como resposta.*/
 }
 
